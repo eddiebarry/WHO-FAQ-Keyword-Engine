@@ -1,0 +1,74 @@
+{
+    "Country": [
+        "india",
+        "canada"
+    ],
+    "Disease 1": [
+        "rubella",
+        "pneumonia",
+        "measles",
+        "hepatitis a",
+        "common cold",
+        "chickenpox",
+        "mumps",
+        "mmr",
+        "shingles",
+        "diphtheria",
+        "pneumococcal"
+    ],
+    "Disease 2": [
+        "tetanus",
+        "measles",
+        "varicella",
+        "chickenpox",
+        "pertussis"
+    ],
+    "Subject 1 - Immunization": [
+        "immunization",
+        "immunity",
+        "record",
+        "schedule",
+        "required",
+        "safety",
+        "vaccination"
+    ],
+    "Subject 2 - Vaccination / General": [
+        "cost",
+        "school",
+        "immunity",
+        "antibody",
+        "effectiveness",
+        "booster",
+        "ingredients",
+        "protection",
+        "vaccination",
+        "travel"
+    ],
+    "Vaccine": [
+        "flu",
+        "rubella",
+        "tetanus",
+        "dtap",
+        "pneumonia",
+        "hepatitis b",
+        "measles",
+        "hepatitis a",
+        "varicella",
+        "mmr",
+        "chickenpox",
+        "mumps",
+        "influenza",
+        "hepatitis a&b",
+        "pertussis",
+        "diphtheria",
+        "pneumococcal"
+    ],
+    "Who is writing this": [
+        "elderly",
+        "unknown",
+        "child",
+        "adult",
+        "mother",
+        "parent"
+    ]
+}
