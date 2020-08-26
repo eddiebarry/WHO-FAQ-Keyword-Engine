@@ -7,13 +7,13 @@ class KeywordExtract:
         self.dict = self.parse_config(self.config)
     
     def parse_regex_query(self, query):
-        boosting_tokens = defaultdict(str)
+        boosting_tokens = defaultdict(list)
         for fields in self.dict:
             list_words = self.config[fields]
             for wrd in list_words:
                 if wrd in query:
-                    boosting_tokens[fields] = \
-                    (boosting_tokens[fields] + " " + wrd).strip()
+                    boosting_tokens[fields].append(wrd.strip())
+                    print(wrd.strip())
         
         return dict(boosting_tokens)
 
@@ -26,5 +26,5 @@ if __name__ == '__main__':
     jsonObj = json.load(f)
     
     ext = KeywordExtract(jsonObj)
-    query = "what is the life expectancy of my child ?"
+    query = "what is the life expectancy of my child or son ?"
     print(ext.parse_regex_query(query))

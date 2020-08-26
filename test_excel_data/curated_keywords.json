@@ -29,7 +29,7 @@
         "record",
         "schedule",
         "required",
-        "safety",
+        "safe",
         "vaccination"
     ],
     "Subject 2 - Vaccination / General": [
@@ -69,6 +69,8 @@
         "child",
         "adult",
         "mother",
-        "parent"
+        "parent",
+        "son",
+        "daughter"
     ]
 }
