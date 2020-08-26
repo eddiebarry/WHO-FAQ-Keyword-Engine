@@ -13,7 +13,6 @@ class KeywordExtract:
             for wrd in list_words:
                 if wrd in query:
                     boosting_tokens[fields].append(wrd.strip())
-                    print(wrd.strip())
         
         return dict(boosting_tokens)
 
