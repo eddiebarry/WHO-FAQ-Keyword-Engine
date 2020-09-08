@@ -88,10 +88,10 @@ class KeywordExtract:
         return config
 
 if __name__ == '__main__':
-    jsonpath = "./test_excel_data/curated_keywords.json"
+    jsonpath = "./test_excel_data/curated_keywords_1500.json"
     f = open(jsonpath,)
     jsonObj = json.load(f)
     
     ext = KeywordExtract(jsonObj)
-    query = "what is the life expectancy of my child or son ?"
+    query = "what is the life expectancy of my child or son if they have polio?"
     print(ext.parse_regex_query(query))

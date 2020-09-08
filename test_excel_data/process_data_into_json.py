@@ -10,7 +10,7 @@ we can add to the search index
 """
 
 
-xl = pd.read_excel("./VSN Categorization Template V3.xlsx")
+xl = pd.read_excel("./VSN Categorization Template-Consolidated.xlsx")
 xl = xl.fillna("")
 print(xl.head())
 
@@ -44,12 +44,11 @@ config_dict = process_config_dict(config_dict)
 for idx,x in xl.iterrows():
     object_dict = dict(x)
     json_name = hashlib.sha512(x['Master Question'].encode()).hexdigest()
-    json_file_name = "/root/pylucene/FAQ_Answer_project/keyword_engine/" \
-        + "test_excel_data/json_data/" + json_name+".json"
+    json_file_name = "./json_data_1500/" + json_name+".json"
     with open(json_file_name , 'w') as json_file:
         json.dump(object_dict, json_file, indent = 4, sort_keys=True)
 
-json_file_name = "unique_keywords.json"
+json_file_name = "unique_keywords_1500.json"
 with open(json_file_name , 'w') as json_file:
     json.dump(config_dict, json_file, indent = 4, sort_keys=True)
 
