@@ -1,7 +1,6 @@
 {
     "Disease 1": [
         "pneumococcal",
-        "",
         "meningitis",
         "pertussis",
         "mmr",
@@ -48,7 +47,6 @@
         "chickenpox"
     ],
     "Disease 2": [
-        "",
         "pneumococcal",
         "meningitis",
         "pertussis",
@@ -118,7 +116,6 @@
         "mumps and rubella vaccines"
     ],
     "Other -condition, symptom etc": [
-        "",
         "fluzone",
         "splenectomy",
         "health passport",
@@ -374,14 +371,11 @@
     ],
     "Subject 1 - Immunization": [
         "immunization",
-        "immunization schedule",
-        "immunization general",
-        "immunization record",
+        "schedule",
+        "record",
         "immunization required",
         "immunity",
-        "generic",
-        "i",
-        "immunization safety",
+        "safety",
         "vaccination"
     ],
     "Subject 2 - Vaccination / General": [
@@ -415,7 +409,6 @@
         "pertussis",
         "polio",
         "chickenpox",
-        "general vaccine safety information",
         "shingles",
         "hep b",
         "diphtheria",
@@ -436,7 +429,6 @@
         "bcg",
         "pneumonia",
         "poliomyelitis",
-        "-",
         "hepatitis b",
         "hepatitis a",
         "tuberculosis",
@@ -452,7 +444,6 @@
         "hepatitis a&b"
     ],
     "Vaccine 2": [
-        "",
         "pneumococcal",
         "meningitis",
         "mmrv",
