@@ -88,7 +88,7 @@ class KeywordExtract:
         return config
 
 if __name__ == '__main__':
-    jsonpath = "./test_excel_data/curated_keywords_1500.json"
+    jsonpath = "./keyword_config/curated_keywords_1500.json"
     f = open(jsonpath,)
     jsonObj = json.load(f)
     
