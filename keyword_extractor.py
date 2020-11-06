@@ -56,8 +56,8 @@ class KeywordExtract:
     """
     def __init__(self, config):
         """ Simple init function """
-        self.config = config
-        self.dict = self.parse_config(self.config)
+        # self.config = config
+        self.dict = config
     
     def parse_regex_query(self, query):
         """
@@ -77,7 +77,7 @@ class KeywordExtract:
         """
         boosting_tokens = defaultdict(list)
         for fields in self.dict:
-            list_words = self.config[fields]
+            list_words = self.dict[fields]
             for wrd in list_words:
                 if wrd in query:
                     boosting_tokens[fields].append(wrd.strip())
@@ -85,7 +85,10 @@ class KeywordExtract:
         return dict(boosting_tokens)
 
     def parse_config(self, config):
-        return config
+        new_config = {}
+        for x in config:
+            new_config.update(x)
+        return new_config
 
 if __name__ == '__main__':
     jsonpath = "./keyword_config/curated_keywords_1500.json"
