@@ -1,4 +1,6 @@
 import json
+from os import listdir
+from os.path import join as os_path_join
 from collections import defaultdict
 
 class KeywordExtract:
@@ -54,12 +56,31 @@ class KeywordExtract:
         Checks if a particular keyword is present in the query string and then
         returns the query string
     """
-    def __init__(self, config):
+    def __init__(self, config_path):
         """ Simple init function """
         # self.config = config
-        self.dict = config
+
+        # TODO: make project_id and version_id mandatory removing the following:
+        default_filename = 'unique_keywords.json'
+
+        self.dict = {}
+        for filename in listdir(config_path):
+            if filename.endswith('.json') and filename != default_filename:
+
+                # TODO: make project_id and version_id mandatory removing the following:
+                if filename == default_filename:
+                    continue
+
+                project_id, version_id = filename.split('_')[:2]
+                self.dict[project_id] = self.dict.setdefault(project_id, {})
+                with open(os_path_join(config_path, filename), 'r') as f:
+                    self.dict[project_id][version_id] = json.load(f)
+
+        # TODO: make project_id and version_id mandatory removing the following:
+        with open(os_path_join(config_path, default_filename), 'r') as f:
+            self.dict['default'] = json.load(f)
     
-    def parse_regex_query(self, query):
+    def parse_regex_query(self, query, project_id, version_id):
         """
         Takes a user input query, checks if each keyword specified in the
         config is present or not, and then returns the keyword along
@@ -74,27 +95,51 @@ class KeywordExtract:
         ------
         query_string : String
             The string input by the user
+        project_id : String
+            A unique identifier of the project of interest
+        version_id : String
+            A unique identifier of the version of interest
         """
-        boosting_tokens = defaultdict(list)
-        for fields in self.dict:
-            list_words = self.dict[fields]
-            for wrd in list_words:
-                if wrd in query:
-                    boosting_tokens[fields].append(wrd.strip())
+        if (project_id != None) and (version_id != None): # TODO: make project_id and version_id mandatory mandatory always executing the 'if' content:
+            boosting_tokens = defaultdict(list)
+            for fields in self.dict[project_id][version_id]:
+                list_words = self.dict[project_id][version_id][fields]
+                for wrd in list_words:
+                    if wrd in query:
+                        boosting_tokens[fields].append(wrd.strip())
+
+        else: # TODO: make project_id and version_id mandatory removing the following 'else' block:
+            boosting_tokens = defaultdict(list)
+            for fields in self.dict['default']:
+                list_words = self.dict['default'][fields]
+                for wrd in list_words:
+                    if wrd in query:
+                        boosting_tokens[fields].append(wrd.strip())
         
         return dict(boosting_tokens)
 
-    def parse_config(self, config):
+    def parse_config(self, config): # TODO: update this method properly
         new_config = {}
-        for x in config:
-            new_config.update(x)
+
+        # for project_id in config.keys():
+
+        #     # TODO: make project_id and version_id mandatory removing the following:
+        #     if project_id == 'default':
+        #         continue
+
+        #     for version_id in config[project_id].keys():
+        #         new_config[project_id] = new_config.setdefault(project_id, {})
+        #         new_config[project_id][version_id] = config[project_id][version_id]
+
+        # # TODO: make project_id and version_id mandatory removing the following:
+        # new_config['default'] = config['default']
+
+        new_config = config
+        
         return new_config
 
 if __name__ == '__main__':
-    jsonpath = "./keyword_config/curated_keywords_1500.json"
-    f = open(jsonpath,)
-    jsonObj = json.load(f)
-    
-    ext = KeywordExtract(jsonObj)
+    jsonpath = "./keyword_config"    
+    ext = KeywordExtract(jsonpath)
     query = "what is the life expectancy of my child or son if they have polio?"
-    print(ext.parse_regex_query(query))
+    print(ext.parse_regex_query(query, project_id='0'))
