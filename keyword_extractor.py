@@ -60,6 +60,8 @@ class KeywordExtract:
         """ Simple init function """
         # self.config = config
 
+        self.config_path = config_path
+
         # TODO: make project_id and version_id mandatory removing the following:
         default_filename = 'unique_keywords.json'
 
@@ -118,25 +120,22 @@ class KeywordExtract:
         
         return dict(boosting_tokens)
 
-    def parse_config(self, config): # TODO: update this method properly
-        new_config = {}
+    def parse_config(self, config, project_id, version_id):
 
-        # for project_id in config.keys():
+        # updating the corresponding dictionary:
+        self.dict[project_id][version_id] = config
 
-        #     # TODO: make project_id and version_id mandatory removing the following:
-        #     if project_id == 'default':
-        #         continue
+        # finding the filename corresponding to the actual settings for the 
+        # given project id and keyword id:
+        filename_beginning = project_id + '_' + version_id + '_'
+        for filename in listdir(self.config_path):
+            if filename.endswith('.json') and  \
+                filename.startswith(filename_beginning):
+                break
 
-        #     for version_id in config[project_id].keys():
-        #         new_config[project_id] = new_config.setdefault(project_id, {})
-        #         new_config[project_id][version_id] = config[project_id][version_id]
-
-        # # TODO: make project_id and version_id mandatory removing the following:
-        # new_config['default'] = config['default']
-
-        new_config = config
-        
-        return new_config
+        # overwriting old settings in corresponding file with new settings:
+        with open(os_path_join(self.config_path, filename), 'w') as f:
+            json.dump(self.dict[project_id][version_id], f)
 
 if __name__ == '__main__':
     jsonpath = "./keyword_config"    
