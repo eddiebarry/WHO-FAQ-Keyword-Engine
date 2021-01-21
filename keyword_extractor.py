@@ -122,6 +122,11 @@ class KeywordExtract:
 
     def parse_config(self, config, project_id, version_id):
 
+        # modifying the dictionary structure to be as expected (list of 
+        # dictionaries with a single key each --> unique dictionary with 
+        # including all keys) :
+        config = {list(d.keys())[0]: list(d.values())[0] for d in config}
+
         # updating the corresponding dictionary:
         self.dict[project_id][version_id] = config
 
