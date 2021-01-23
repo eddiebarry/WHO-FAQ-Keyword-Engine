@@ -62,25 +62,13 @@ class KeywordExtract:
 
         self.config_path = config_path
 
-        # TODO: make project_id and version_id mandatory removing the following:
-        default_filename = 'unique_keywords.json'
-
         self.dict = {}
         for filename in listdir(config_path):
-            if filename.endswith('.json') and filename != default_filename:
-
-                # TODO: make project_id and version_id mandatory removing the following:
-                if filename == default_filename:
-                    continue
-
+            if filename.endswith('.json'):
                 project_id, version_id = filename.split('_')[:2]
                 self.dict[project_id] = self.dict.setdefault(project_id, {})
                 with open(os_path_join(config_path, filename), 'r') as f:
                     self.dict[project_id][version_id] = json.load(f)
-
-        # TODO: make project_id and version_id mandatory removing the following:
-        with open(os_path_join(config_path, default_filename), 'r') as f:
-            self.dict['default'] = json.load(f)
     
     def parse_regex_query(self, query, project_id, version_id):
         """
@@ -102,21 +90,12 @@ class KeywordExtract:
         version_id : String
             A unique identifier of the version of interest
         """
-        if (project_id != None) and (version_id != None): # TODO: make project_id and version_id mandatory mandatory always executing the 'if' content:
-            boosting_tokens = defaultdict(list)
-            for fields in self.dict[project_id][version_id]:
-                list_words = self.dict[project_id][version_id][fields]
-                for wrd in list_words:
-                    if wrd in query:
-                        boosting_tokens[fields].append(wrd.strip())
-
-        else: # TODO: make project_id and version_id mandatory removing the following 'else' block:
-            boosting_tokens = defaultdict(list)
-            for fields in self.dict['default']:
-                list_words = self.dict['default'][fields]
-                for wrd in list_words:
-                    if wrd in query:
-                        boosting_tokens[fields].append(wrd.strip())
+        boosting_tokens = defaultdict(list)
+        for fields in self.dict[project_id][version_id]:
+            list_words = self.dict[project_id][version_id][fields]
+            for wrd in list_words:
+                if wrd in query:
+                    boosting_tokens[fields].append(wrd.strip())
         
         return dict(boosting_tokens)
 
@@ -124,7 +103,7 @@ class KeywordExtract:
 
         # modifying the dictionary structure to be as expected (list of 
         # dictionaries with a single key each --> unique dictionary with 
-        # including all keys) :
+        # including all keys):
         config = {list(d.keys())[0]: list(d.values())[0] for d in config}
 
         # updating the corresponding dictionary:
@@ -138,9 +117,9 @@ class KeywordExtract:
                 filename.startswith(filename_beginning):
                 break
 
-        # overwriting old settings in corresponding file with new settings:
-        with open(os_path_join(self.config_path, filename), 'w') as f:
-            json.dump(self.dict[project_id][version_id], f)
+        # # overwriting old settings in corresponding file with new settings:
+        # with open(os_path_join(self.config_path, filename), 'w') as f:
+        #     json.dump(self.dict[project_id][version_id], f)
 
 if __name__ == '__main__':
     jsonpath = "./keyword_config"    
