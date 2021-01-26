@@ -122,7 +122,7 @@ class KeywordExtract:
         #     json.dump(self.dict[project_id][version_id], f)
 
 if __name__ == '__main__':
-    jsonpath = "./keyword_config"    
+    jsonpath = "../data/unique_keywords"    
     ext = KeywordExtract(jsonpath)
     query = "what is the life expectancy of my child or son if they have polio?"
     print(ext.parse_regex_query(query, project_id='999', version_id='0'))
